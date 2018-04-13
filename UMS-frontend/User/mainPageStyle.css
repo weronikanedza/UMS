@@ -22,7 +22,7 @@ body{
     background: #62B2FF;
     height: 100%;
     width:200px;
-    margin-right: 25px;
+    margin-right: 50px;
 }
 
 .firstLetter{
@@ -64,14 +64,8 @@ li:hover{
 
 
 .pre-scrollable {
-    margin-top:25px;
+    margin-top:50px;
     margin-right:50px;
     max-height: 400px;
 }
 
-#addUserButton{
-  margin-left:25px;
-  width: 200px;
-  margin-top:25px;
-  font-size: 25px;
-}
