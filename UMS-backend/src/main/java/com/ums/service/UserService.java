@@ -1,5 +1,6 @@
 package com.ums.service;
 
+import com.ums.dto.EditUserDTO;
 import com.ums.entity.User;
 import com.ums.entity.UserGroup;
 import com.ums.exception.OperationException;
@@ -12,7 +13,7 @@ public interface UserService {
     UserGroup getUserGroup(Long id);
     List<User> getAllUsers();
     User retrieveById(Long id);
-    List<UserGroup> getAllGroups();
     void update(User user);
     void removeUserById(Long id);
+    EditUserDTO getUserWithGroup(Long id);
 }

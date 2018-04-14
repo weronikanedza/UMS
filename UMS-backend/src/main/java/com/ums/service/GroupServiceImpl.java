@@ -2,6 +2,7 @@ package com.ums.service;
 
 import com.ums.entity.UserGroup;
 import com.ums.repository.GroupRepository;
+import com.ums.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,12 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService{
     private GroupRepository groupRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public GroupServiceImpl(GroupRepository groupRepository) {
+    public GroupServiceImpl(GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -24,6 +27,25 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public UserGroup retrieveById(Long id) {
         return groupRepository.getOne(id);
+    }
+
+    @Override
+    public void removeGroupById(Long id) {
+        userRepository.removeUsersByGroup(groupRepository.getOne(id)); //remove users from group
+        groupRepository.removeById(id); //remove group
+    }
+
+
+    @Override
+    public void editGroupName(UserGroup userGroup) {
+        UserGroup userGroupTo=addGroup(userGroup.getName());  //add new Group
+        userRepository.updateUsersGroups(userGroupTo,groupRepository.getOne(userGroup.getId()));// change groups of users
+        groupRepository.removeById(userGroup.getId());//delete previous group
+    }
+
+    @Override
+    public UserGroup addGroup(String name) {
+        return groupRepository.save(new UserGroup(name)); //create new group
     }
 
 }

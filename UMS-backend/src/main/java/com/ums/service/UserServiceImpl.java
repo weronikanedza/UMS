@@ -1,5 +1,6 @@
 package com.ums.service;
 
+import com.ums.dto.EditUserDTO;
 import com.ums.entity.User;
 import com.ums.entity.UserGroup;
 import com.ums.exception.OperationException;
@@ -39,10 +40,6 @@ public class UserServiceImpl implements UserService {
         return groupService.retrieveById(id);
     }
 
-    public List<UserGroup> getAllGroups(){
-        return groupService.getAllGroups();
-    }
-
     @Override
     public void update(User user) {
         userRepository.updateUser(user.getUserName(),user.getFirstName(),user.getDate(),
@@ -51,7 +48,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeUserById(Long id) {
-        userRepository.removeUser(id);
+        userRepository.removeById(id);
+    }
+
+    @Override
+    public EditUserDTO getUserWithGroup(Long id) {
+        return new EditUserDTO(retrieveById(id),groupService.getAllGroups());
     }
 
     @Override

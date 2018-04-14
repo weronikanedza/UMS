@@ -18,13 +18,22 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE User u set u.userName= ?1," +
+    void removeById(Long id);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM User u WHERE u.group=?1")
+    void removeUsersByGroup(UserGroup userGroup);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.userName= ?1," +
             "u.firstName= ?2,u.date=?3,u.lastName= ?4," +
-            "u.password= ?5,u.group= ?6 where u.id=?7")
+            "u.password= ?5,u.group= ?6 WHERE u.id=?7")
     void updateUser(String userName, String firstName, String date, String lastName, String password, UserGroup userGroup,Long id);
 
     @Modifying
     @Transactional
-    @Query("DELETE from User u where u.id=?1")
-    void removeUser(Long id);
+    @Query("UPDATE User u SET u.group= ?1 WHERE u.group=?2")
+    void updateUsersGroups(UserGroup userGroupFrom,UserGroup userGroupTo);
 }

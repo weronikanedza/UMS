@@ -1,28 +1,25 @@
 $(document).ready(function(){
-    jQuery.support.cors = true;
     get_data();
   }); 
 
 
   function get_data(){
-    var urlRand = new Date().getTime();
 
     $.ajax({
-      cache: false,
-      crossDomain: true,
         type: "GET",
         url: "http://localhost:8282/getUsers",
         complete: function(data) {  
             if(data.status==200) fillTable(data);
             else alert("failed");
         }  ,
-        dataType: "json"
+        dataType: "application/json"
     });
 }
 
 function fillTable(data){
   var dataObject=JSON.parse(data.responseText);
   for(i=0;i<dataObject.length;i++){
+    console.log(i);
     $("#table").append("<tr><td>"+dataObject[i].id+"</td><td>"+dataObject[i].userName+"</td><td>"+dataObject[i].firstName+"</td>"
     +"<td>"+dataObject[i].lastName+"</td><td>"+dataObject[i].date+"</td><td>"+dataObject[i].group.name+
     "</td><td><button class='edit' onclick ='editUser($(this))'>edit</button><button class='remove' onclick ='removeUser($(this))'>remove</button></td></tr>");
@@ -30,6 +27,7 @@ function fillTable(data){
 }
 
 function editUser(chosenRow){
+
   var cells = chosenRow.closest("tr").children("td"); //get table row
   localStorage.setItem('userId',cells.eq(0).text());
   window.location.href="../User/editUser/editUser.html";

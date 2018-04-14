@@ -54,6 +54,8 @@ function setDateInput(){
 }
 
 function post_data(user){
+    alert('post')
+    
     $.ajax({
         type: "POST",
         headers : {

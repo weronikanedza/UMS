@@ -37,8 +37,7 @@ function fillForm(data){
         $("#firstName").val(user.firstName);
         $("#lastName").val(user.lastName);
         $("#userName").val(user.userName);  
-        $("#datepicker").val(user.date);
-       
+        $("#datepicker").val(user.date);     
 }
 
 function readyToPost(userId){
@@ -98,6 +97,7 @@ function editUserBlankFields(){
 }
 
 function editUserAccepted(){
+    localStorage.removeItem('userId');
     alert("Edit user sucessful");
     window.location.href="../mainPage.html";
 }

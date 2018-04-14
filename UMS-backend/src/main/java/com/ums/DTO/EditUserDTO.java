@@ -1,4 +1,4 @@
-package com.ums.DTO;
+package com.ums.dto;
 
 import com.ums.entity.User;
 import com.ums.entity.UserGroup;

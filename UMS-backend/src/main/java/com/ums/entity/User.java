@@ -1,17 +1,19 @@
 package com.ums.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ums.DTO.UserDTO;
+import com.ums.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //let serialize nested objects
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //let serialize nested oxambjects
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +27,6 @@ public class User {
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="usergroup_id")
     private UserGroup group;
-
-    public User() {
-    }
 
     public static User convertFrom(UserDTO userDTO,UserGroup userGroup) {
         if (userDTO == null)

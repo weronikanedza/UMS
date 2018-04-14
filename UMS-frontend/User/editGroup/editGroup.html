@@ -1,0 +1,42 @@
+<html>
+    <head>
+    <title>User Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../mainPageStyle.css">
+    <link rel="stylesheet" type="text/css" href="editGroupStyle.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="editGroupScript.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+        <div class="topBar">
+            <span class="firstLetter">U</span>ser <span class="firstLetter">M</span>anagement <span class="firstLetter">S</span>ystem
+        </div>
+        <div class="menuBar">
+            <ul>
+                <li><a href="../mainPage.html" style="margin-right:8px">Users </a></li>
+                <li><a href="../addUser/addUser.html" style="margin-right:8px">Add user</a></li>
+                <li><a href="../groups/groups.html" style="margin-right:8px">Groups</a></li>
+                <li><a href="../addGroup/addGroup.html" style="margin-right:8px">Add group</a></li>
+                <li>Edit group<div class="clicked"></div></li>
+            </ul>
+        </div>
+        <h2 style="margin-top:25px">Edit group</h2>
+        <div class="formContainer">
+            <form id="editGroupForm">
+                <div class="form-group">
+                    <label for="groupName">Group name:</label>
+                    <input type="text" class="form-control" id="groupName"  autocomplete="off">
+                </div>
+                    <div class="clear"></div>
+                <button type="submit" id="submit" class="btn btn-primary">Submit</button> 
+                    <div class="clear"></div>
+                <div id="message-box" class="logIn-box" style="display:none"><span id="errMessage"></span></div>
+            </form>
+        </div>
+    </body>
+</html>

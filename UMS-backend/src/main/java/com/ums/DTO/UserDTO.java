@@ -1,7 +1,8 @@
-package com.ums.DTO;
+package com.ums.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO implements Serializable{
 
     private Long id;
@@ -27,6 +29,4 @@ public class UserDTO implements Serializable{
     private String date;
     @NotNull
     private Long groupId;
-
-    public UserDTO(){}
 }
