@@ -1,16 +1,21 @@
 $(document).ready(function(){
     setDateInput();
-    get_data();
+    const userId=localStorage.getItem('userId');
+    get_data(userId);
 });
 
-function get_data(){
+function get_data(userId){
     $.ajax({
-        type: "GET",
-        url: "http://localhost:8282/getGroups",
+        type: "POST",
+        headers : {
+            "content-type" : "application/json"
+        },
+        url: "http://localhost:8282/getUserById",
+        data:userId,
         complete: function(data) {  //received groups
             if(data.status==200){   //check response status
-                setSelect(data); 
-                readyToPost();    //after get post is avaible
+                fillForm(data); 
+                readyToPost(userId);    //after get post is avaible
             }
             else getFailed();
         }  ,
@@ -18,21 +23,30 @@ function get_data(){
     });
 }
 
-function setSelect(data){
-    const dataObject=JSON.parse(data.responseText);
-    $.each(dataObject, function (i, dataObject) {
+function fillForm(data){ 
+    const group=JSON.parse(data.responseText).userGroups;
+    const user=JSON.parse(data.responseText).user;
+
+    $.each(group, function (i, group) {
         $('#selectpicker').append($('<option>', { 
-            value: dataObject.id,
-            text: dataObject.name
+            value: group.id,
+            text:  group.name
         }));
     });
+        $('#selectpicker option[value="'+user.group.id+'"]').attr("selected",true);
+        $("#firstName").val(user.firstName);
+        $("#lastName").val(user.lastName);
+        $("#userName").val(user.userName);  
+        $("#datepicker").val(user.date);
+       
 }
 
-function readyToPost(){
+function readyToPost(userId){
 
     $("#addUserForm").submit(function() {
         event.preventDefault();
         const user={
+        id: userId,
         firstName: $("#firstName").val(),
         lastName: $("#lastName").val(),
         userName: $("#userName").val(),
@@ -54,43 +68,40 @@ function setDateInput(){
 }
 
 function post_data(user){
-    alert('post')
-    
     $.ajax({
         type: "POST",
         headers : {
             "content-type" : "application/json"
         },
-        url: "http://localhost:8282/addUser",
+        url: "http://localhost:8282/editUser",
         data: JSON.stringify(user),
         complete: function(data) {
-            if(data.status==200) addUserAccepted(); //check response status
-            else if(data.status==500) addUserRejected(data);
-            else addUserBlankFields();
+            if(data.status==200) editUserAccepted(); //check response status
+            else if(data.status==500) editUserRejected(data);
+            else editUserBlankFields();
         }  ,
         dataType: "application/json"
     });
 }
 
-
-function addUserRejected(data){
+function editUserRejected(data){
     var dataObject=JSON.parse(data.responseText);  
     $('#errMessage').html( dataObject.message);
     $('#message-box').css("display","block").css("background","#FFEBE8").css("color","#D52727")
     .css("border","1px solid #D52727");
 }
 
-function addUserBlankFields(){
+function editUserBlankFields(){
     $('#errMessage').html( "Blank fields");
     $('#message-box').css("display","block").css("background","#FFEBE8").css("color","#D52727")
     .css("border","1px solid #D52727");
 }
 
-function addUserAccepted(){
-    $('#errMessage').html( "Add user sucessful");
-    $('#message-box').css("display","block").css("background","#8AE19A").css("color","#085D3C")
-    .css("border","1px solid #085D3C");
+function editUserAccepted(){
+    alert("Edit user sucessful");
+    window.location.href="../mainPage.html";
 }
+
 function getFailed(){
     $('#errMessage').html( "Server error.Refresh page");
     $('#message-box').css("display","block");

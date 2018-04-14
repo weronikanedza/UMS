@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -23,7 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) throws OperationException{
-        System.out.println(user);
         checkIfUserExists(user.getUserName());
         userRepository.save(user);
     }
@@ -37,4 +38,29 @@ public class UserServiceImpl implements UserService {
     public UserGroup getUserGroup(Long id){
         return groupService.retrieveById(id);
     }
+
+    public List<UserGroup> getAllGroups(){
+        return groupService.getAllGroups();
     }
+
+    @Override
+    public void update(User user) {
+        userRepository.updateUser(user.getUserName(),user.getFirstName(),user.getDate(),
+                user.getLastName(),user.getPassword(),user.getGroup(),user.getId());
+    }
+
+    @Override
+    public void removeUserById(Long id) {
+        userRepository.removeUser(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAllByOrderByIdAsc();
+    }
+
+    @Override
+    public User retrieveById(Long id) {
+        return userRepository.getOne(id);
+    }
+}

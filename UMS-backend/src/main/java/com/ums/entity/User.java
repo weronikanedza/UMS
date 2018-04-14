@@ -1,5 +1,6 @@
 package com.ums.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ums.DTO.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @Table(name = "user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //let serialize nested objects
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +34,7 @@ public class User {
             return null;
 
         final User user = new User();
+        user.setId(userDTO.getId());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setDate(userDTO.getDate());

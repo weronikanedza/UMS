@@ -23,6 +23,7 @@ body{
     height: 100%;
     width:200px;
     margin-right: 50px;
+    color:#FFFFFF;
 }
 
 .firstLetter{
@@ -67,5 +68,14 @@ li:hover{
     margin-top:50px;
     margin-right:50px;
     max-height: 400px;
+}
+
+td a{
+    margin-right: 5px;
+    color:#000000;
+}
+
+td a:hover{
+    color:blue;
 }
 

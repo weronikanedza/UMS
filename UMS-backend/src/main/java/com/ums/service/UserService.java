@@ -4,8 +4,15 @@ import com.ums.entity.User;
 import com.ums.entity.UserGroup;
 import com.ums.exception.OperationException;
 
+import java.util.List;
+
 public interface UserService {
     void save(User user) throws OperationException; //save user in DB
     void checkIfUserExists(String userName) throws OperationException;
     UserGroup getUserGroup(Long id);
+    List<User> getAllUsers();
+    User retrieveById(Long id);
+    List<UserGroup> getAllGroups();
+    void update(User user);
+    void removeUserById(Long id);
 }
