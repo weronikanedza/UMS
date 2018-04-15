@@ -8,17 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserName(String userName);
-    List<User> findAllByOrderByIdAsc();
     User getOne(Long id);
 
     @Modifying
     @Transactional
-    void removeById(Long id);
+    @Query("DELETE from User u where u.id=?1")
+    void removeUser(Long id);
 
     @Modifying
     @Transactional

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 @Repository
 public interface GroupRepository extends JpaRepository<UserGroup,Long> {
    UserGroup getOne(Long id);
+   UserGroup findByName(String name);
 
    @Modifying
    @Transactional

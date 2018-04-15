@@ -2,6 +2,7 @@ package com.ums.contoller;
 
 import com.ums.dto.GroupDTO;
 import com.ums.entity.UserGroup;
+import com.ums.exception.OperationException;
 import com.ums.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class GroupController {
     public ResponseEntity<Collection<UserGroup>> getGroups(){
         return ResponseEntity.ok(groupService.getAllGroups());
     }
+
     @PostMapping(path="/removeGroup",consumes=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity removeUser(@RequestBody Long id){
         groupService.removeGroupById(id);
@@ -33,8 +35,14 @@ public class GroupController {
     }
 
     @PostMapping(path="/editGroup",consumes=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity editGroup(@RequestBody @Valid GroupDTO groupDTO){
+    public ResponseEntity editGroup(@RequestBody @Valid GroupDTO groupDTO) throws OperationException{
        groupService.editGroupName(UserGroup.convertFrom(groupDTO));
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(path="/addGroup",consumes=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addGroup(@RequestBody String name)throws OperationException{
+        groupService.addGroup(name);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }
 }

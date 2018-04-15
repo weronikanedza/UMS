@@ -1,21 +1,28 @@
 $(document).ready(function(){
     setDateInput();
-    get_data();
+    getData();
 });
 
-function get_data(){
+function getData(){
     $.ajax({
         type: "GET",
         url: "http://localhost:8282/getGroups",
-        complete: function(data) {  //received groups
-            if(data.status==200){   //check response status
-                setSelect(data); 
-                readyToPost();    //after get post is avaible
-            }
-            else getFailed();
-        }  ,
+        complete: function(data) { 
+            getGroups(data);
+        },
         dataType: 'application/json'
     });
+}
+
+function getGroups(data){
+    if(data.status==200 && JSON.parse(data.responseText).length>0){ //check if at least one group exists
+        setSelect(data); 
+        readyToPost();    
+    }else if(data.status==200){
+        showErrorMessage("You have to add group before adding user");
+    }else{
+        responseAction(data);
+    }
 }
 
 function setSelect(data){
@@ -29,31 +36,33 @@ function setSelect(data){
 }
 
 function readyToPost(){
-
     $("#addUserForm").submit(function() {
         event.preventDefault();
-        const user={
-        firstName: $("#firstName").val(),
-        lastName: $("#lastName").val(),
-        userName: $("#userName").val(),
-        password : $("#password").val(),
-        date : $("#datepicker").val(),
-        groupId :$("#selectpicker").val(),
-        passwordConfirm : $("#passwordConfirm").val()   
-        }
-    
-        post_data(user);
+        const user=getUser();
+        if(validation(user)) postData(user);
     });
 }
 
+function getUser(){
+    const user={
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val(),
+        userName: $('#userName').val(),
+        password : $('#password').val(),
+        date : $('#datepicker').val(),
+        groupId :$('#selectpicker').val(),
+        passwordConfirm : $('#passwordConfirm').val()   
+    }
+    return user;
+}
 
 function setDateInput(){
     $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
+        uiLibrary: "bootstrap4"
     });
 }
 
-function post_data(user){
+function postData(user){
     $.ajax({
         type: "POST",
         headers : {
@@ -62,34 +71,79 @@ function post_data(user){
         url: "http://localhost:8282/addUser",
         data: JSON.stringify(user),
         complete: function(data) {
-            if(data.status==200) addUserAccepted(); //check response status
-            else if(data.status==500) addUserRejected(data);
-            else addUserBlankFields();
+            responseAction(data);
         }  ,
         dataType: "application/json"
     });
 }
 
-
-function addUserRejected(data){
-    var dataObject=JSON.parse(data.responseText);  
-    $('#errMessage').html( dataObject.message);
-    $('#message-box').css("display","block").css("background","#FFEBE8").css("color","#D52727")
-    .css("border","1px solid #D52727");
+function responseAction(data){
+    switch(data.status){
+        case 200 :
+            alert("Add user successful");
+            window.location.href="../mainPage.html";
+            break;
+        case 500 :
+            const err=JSON.parse(data.responseText);
+            showErrorMessage(err.message);
+            break;
+        default:
+            showErrorMessage("Error occured.Try again latter");
+            break;
+    }
 }
 
-function addUserBlankFields(){
-    $('#errMessage').html( "Blank fields");
-    $('#message-box').css("display","block").css("background","#FFEBE8").css("color","#D52727")
-    .css("border","1px solid #D52727");
-}
-
-function addUserAccepted(){
-    $('#errMessage').html( "Add user sucessful");
-    $('#message-box').css("display","block").css("background","#8AE19A").css("color","#085D3C")
-    .css("border","1px solid #085D3C");
-}
-function getFailed(){
-    $('#errMessage').html( "Server error.Refresh page");
+function showErrorMessage(text){
+    $('#errMessage').html(text);
     $('#message-box').css("display","block");
+}
+
+function validation(user){
+    if(isValidDate(user.date) && correctAge(user.date) && correctPassword(user.password)
+                              && passwordConfirmation(user.password,user.passwordConfirm))
+         return true;
+    else return false;
+}
+
+function isValidDate(date){
+    const pattern =/^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+    if(pattern.test(date)) return true;
+    else{
+        showErrorMessage("Wrong date format ex.DD/MM/YYYY");
+        return false;
+    }
+}
+
+function passwordConfirmation(pwd,pwdConfirm){
+    if(pwd===pwdConfirm) return true;
+    else{
+        showErrorMessage("Passwords are not the same");
+        return false;
+    }
+}
+
+function correctPassword(password){
+    const pattern=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}/;
+    if(pattern.test(password)) return true;
+    else{
+        showErrorMessage("Password must contain :numer, uppercase letter, lowercase letter and 8-16 characters");
+        return false;
+    }
+}
+
+function correctAge(date){
+    const parts=date.split('/');
+    const dateOfBirth=new Date(parts[0],parts[1]-1,parts[2]);
+    if(calculateAge(dateOfBirth)<18 || calculateAge(dateOfBirth)>100)  return true;
+    else {
+        showErrorMessage("Incorrect date of birth. You have to be adult.")
+        return false;
+    }
+}
+
+function calculateAge(dateOfBirth){
+    const ageDifMs = Date.now() - dateOfBirth.getTime();
+    const ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
 }

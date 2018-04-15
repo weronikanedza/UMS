@@ -28,8 +28,8 @@ public class DataLoader implements ApplicationRunner {
                         "  user (id, first_name, last_name, password,user_name,usergroup_id,date)\n" +
                         "VALUES\n" +
                         "  (1, 'David', 'Moulton','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','david',1 ,'12/03/1998'),\n" +
-                        "  (2, 'Damian', 'Kowalski','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','damian',1 ,'12/07/2000'),\n" +
-                        "(3, 'Agnes', 'Obel','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','agi',2,'23/02/1995' ),\n" +
+                        "  (2, 'Damian', 'Kowalski','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','damian',1 ,'12/07/1999'),\n" +
+                        "(3, 'Agnes', 'Obel','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','agnes',2,'23/02/1995' ),\n" +
                 "  (4, 'Patrik', 'Velas','{bcrypt}$2a$10$usFd.2lfQzOVG/N45uDr7emsFOenWpAtwjqmROMqevyqou/eG26rS','patrik',3,'16/10/1980');"
         ).executeUpdate();
     }

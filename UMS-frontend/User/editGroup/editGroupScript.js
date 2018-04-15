@@ -1,13 +1,10 @@
 $(document).ready(function(){
-   const editGroup=JSON.parse(localStorage.getItem('editGroup'));
+   const editGroup=JSON.parse(sessionStorage.getItem('editGroup'));
    const convertedEditGroup={
        id: editGroup.id,
        name: editGroup.name
    }
 
-   alert(convertedEditGroup.id)
-   alert(convertedEditGroup.name)
-   console.log(convertedEditGroup)
    fillForm(convertedEditGroup.name);
    postData(convertedEditGroup);
 });

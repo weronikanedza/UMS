@@ -5,7 +5,7 @@ body{
     height: 100%;
 }
 
- html {
+html {
     height: 100%;
 }
 
@@ -79,3 +79,8 @@ td a:hover{
     color:blue;
 }
 
+@media only screen and (max-width:600px){
+.menuBar{ 
+    display: none; 
+  }
+}

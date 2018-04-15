@@ -1,73 +1,70 @@
 <!DOCTYPE html>
-<head>
-   <title>User Management System</title>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-   <link rel="stylesheet" type="text/css" href="../mainPageStyle.css">
-   <link rel="stylesheet" type="text/css" href="addUserStyle.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="addUserScript.js"></script> 
-   <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-</head>
-<body>
-    <div class="topBar">
-        <span class="firstLetter">U</span>ser <span class="firstLetter">M</span>anagement <span class="firstLetter">S</span>ystem
-    </div>
-    <div class="menuBar">
-        <ul>
-            <li><a href="../mainPage.html" style="margin-right:8px">Users </a></li>
-            <li><a href="addUser.html">Add user</a><div class="clicked"></div></li>
-            <li><a href="../groups/groups.html" style="margin-right:8px">Groups</a></li>
-            <li><a href="" style="margin-right:8px">Add group</a></li>
-        </ul>
-    </div>
-    <h2 style="margin-top:25px">Add user</h2>
-    <div class="formContainer">
-        <form id="addUserForm">
-            <div class="form-group">
-                <label for="userName">Username:</label>
-                <input type="text" class="form-control" id="userName" placeholder="Enter Username" name="username">
-            </div>
-            <div class="form-group">
-                <label for="selectpicker">Group:</label>
-                <select class="form-control" id="selectpicker"></select>
-            </div>
-                <div class="clear"></div>
-            <div class="form-group">
-                 <label for="firstName">First Name:</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="username" autocomplete="off">
-            </div>
-            <div class="form-group">
-                 <label for="lastName">Last Name:</label>
-                 <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="username" autocomplete="off">
-            </div>
-                 <div class="clear"></div>
-            <div class="form-group">
-                    <label for="dateOfBirth">Date of birth:</label>
-                    <input class="form-control" id="datepicker" width="300" />
-            </div>
-                 <div class="clear"></div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter Password" name="pswd" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label for="passwordConfirm">Password(confirm):</label>
-                <input type="password" class="form-control" id="passwordConfirm" placeholder="Enter Password" name="pswd" autocomplete="off">
-            </div>
-                <div class="clear"></div>
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button> 
-                <div class="clear"></div>
+<html>
+    <head>
+        <title>User Management System</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../mainPageStyle.css">
+        <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="addUserStyle.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="addUserScript.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="topBar">
+            <span class="firstLetter">U</span>ser <span class="firstLetter">M</span>anagement <span class="firstLetter">S</span>ystem
+        </div>
+        <div class="menuBar">
+            <ul>
+                <li><a href="../mainPage.html" style="margin-right:8px">Users </a></li>
+                <li><a href="addUser.html">Add user</a><div class="clicked"></div></li>
+                <li><a href="../groups/groups.html" style="margin-right:8px">Groups</a></li>
+                <li><a href="../addGroup/addGroup.html" style="margin-right:8px">Add group</a></li>
+            </ul>
+        </div>
+        <h2 style="margin-top:25px">Add user</h2>
+        <div class="formContainer">
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label for="userName">Username:</label>
+                    <input required type="text" class="form-control" id="userName" placeholder="Enter Username" name="username" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="selectpicker">Group:</label>
+                    <select class="form-control" id="selectpicker"></select>
+                </div>
+                    <div class="clear"></div>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input required type="text" class="form-control" id="firstName" placeholder="Enter first name" name="username" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input required type="text" class="form-control" id="lastName" placeholder="Enter last Name" name="username" autocomplete="off">
+                </div>
+                    <div class="clear"></div>
+                <div class="form-group">
+                        <label for="dateOfBirth">Date of birth:</label>
+                        <input  required type="text" class="form-control" id="datepicker" placeholder="DD/MM/YYYY" width="300" />
+                </div>
+                    <div class="clear"></div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input required type="password" class="form-control" id="password" placeholder="Enter password" name="pswd" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirm">Password(confirm):</label>
+                    <input required type="password" class="form-control" id="passwordConfirm" placeholder="Enter password" name="pswd" autocomplete="off">
+                </div>
+                    <div class="clear"></div>
+                <button type="submit" id="submit" class="btn btn-primary">Submit</button> 
+                    <div class="clear"></div>
                 <div id="message-box" class="logIn-box" style="display:none">   
                     <span id="errMessage"></span>
                 </div>
-        </form>
-</div>
-
-   
-
-</body>
+            </form>
+        </div>
+    </body>
 </html>

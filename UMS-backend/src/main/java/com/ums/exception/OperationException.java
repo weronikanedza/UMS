@@ -9,7 +9,6 @@ public class OperationException extends Exception {
         super(message);
         this.status = status;
     }
-
     public HttpStatus getStatus() {
         return status;
     }
