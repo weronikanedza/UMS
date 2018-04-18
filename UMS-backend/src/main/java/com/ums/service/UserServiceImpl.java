@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.getOne(id);
     }
 
-    private void passwordSetUp(UserDTO userDTO)throws OperationException{
+    private void passwordSetUp(UserDTO userDTO){
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }
 

@@ -22,6 +22,7 @@ public class UserGroup {
         this.name = name;
     }
 
+
     public static UserGroup convertFrom(GroupDTO groupDTO){
         if (groupDTO == null)
             return null;

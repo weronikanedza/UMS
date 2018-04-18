@@ -1,18 +1,11 @@
 $(document).ready(function(){
-  get_data();
+  getData("getGroups");
 }); 
 
 
-function get_data(){
-  $.ajax({
-      type: "GET",
-      url: "http://localhost:8282/getGroups",
-      complete: function(data) {  
-          if(data.status==200) fillTable(data);
-          else responseAction(data);
-      }  ,
-      dataType: "application/json"
-  });
+function completeGetBody(data){
+    if(data.status==200) fillTable(data);
+    else responseAction(data,"../groups/groups.html");
 }
 
 function fillTable(data){
@@ -35,49 +28,13 @@ function editGroup(chosenRow){
 
 function removeGroup(chosenRow){
   var cells = chosenRow.closest("tr").children("td"); //get table row
-  postData(cells.eq(0).text());
+  postData(cells.eq(0).text(),"removeGroup");
 }
 
-function postData(groupId){
-    $.ajax({
-    type: "POST",
-    headers : {
-        "content-type" : "application/json"
-    },
-    url: "http://localhost:8282/removeGroup",
-    data: groupId,
-    complete: function(data) {
-        if(data.status==200){
-            alert("Group removed"); //check response status
-            window.location.href = window.location.href;
-        }
-        else alert("Try again");
-    },
-    dataType: "application/json"
-    });
-}
-
-function showErrorMessage(text){
-  $('#errMessage').html(text);
-  $('#message-box').css("display","block");
-}
-
-function responseAction(data){
-  switch(data.status){
-      case 200 :
-          alert("Add user successful");
-          window.location.href="../mainPage.html";
-          break;
-      case 500 :
-          const err=JSON.parse(data.responseText);
-          showErrorMessage(err.message);
-          browser.wait(5000);
-          window.location.href="editUser.html";
-          break;
-      default:
-          showErrorMessage("Error occured.Try again latter");
-          browser.wait(5000);
-          window.location.href="editUser.html";
-          break;
-  }
+function completePostBody(data){
+    if(data.status==200){
+        alert("Group removed"); //check response status
+        window.location.href = window.location.href;
+    }
+    else alert("Try again");
 }

@@ -31,6 +31,8 @@ public class GroupServiceImpl implements GroupService{
         return groupRepository.getOne(id);
     }
 
+
+
     @Override
     public void removeGroupById(Long id) {
         userRepository.removeUsersByGroup(groupRepository.getOne(id)); //remove users from group

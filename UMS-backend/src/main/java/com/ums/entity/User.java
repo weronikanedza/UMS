@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //let serialize nested oxambjects
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //let serialize nested objects
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +42,4 @@ public class User {
         user.setGroup(userGroup);
         return user;
     }
-
 }

@@ -6,47 +6,17 @@ $(document).ready(function(){
    }
 
    fillForm(convertedEditGroup.name);
-   postData(convertedEditGroup);
+   $("#editGroupForm").submit(function() {
+       event.preventDefault();
+       convertedEditGroup.name=$("#groupName").val();
+       postData(JSON.stringify(convertedEditGroup),"editGroup");
+   });
 });
 
 function fillForm(groupName){ 
         $("#groupName").val(groupName);
 }
 
-function postData(convertedEditGroup){
-    $("#editGroupForm").submit(function() {
-        convertedEditGroup.name=$("#groupName").val();
-        event.preventDefault();
-        $.ajax({
-            type: "POST",
-            headers : {
-                "content-type" : "application/json"
-            },
-            url: "http://localhost:8282/editGroup",
-            data: JSON.stringify(convertedEditGroup),
-            complete: function(data){
-                responseAction(data);
-            } ,
-            dataType: "application/json"
-        });
-    });
-}
-
-function responseAction(data){
-        switch(data.status){
-            case 200 :
-                alert("Edit group accepted");
-                window.location.href="../groups/groups.html";
-                break;
-            case 500 :
-                showErrorMessage("Server error.Try again latter");
-                break;
-            default:
-                showErrorMessage("Error occured.Try again latter");
-        }
-}
-
-function showErrorMessage(text){
-    $('#errMessage').html(text);
-    $('#message-box').css("display","block");
+function completePostBody(data){
+    responseAction(data,"../groups/groups.html");
 }
